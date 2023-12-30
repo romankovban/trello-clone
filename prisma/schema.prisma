@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Boards {
+  id        String    @id @default(uuid())
+  title     String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  columns   Columns[]
+}
+
+model Columns {
+  id        String   @id @default(uuid())
+  title     String
+  order     Int
+  width     Int
+  boardId   String
+  board     Boards   @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  cards     Cards[]
+}
+
+model Cards {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  order       Int
+  columnId    String
+  column      Columns  @relation(fields: [columnId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

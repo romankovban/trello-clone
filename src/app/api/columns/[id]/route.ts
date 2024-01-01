@@ -1,14 +1,14 @@
-import { updateColumnDto } from '@/app/api/columns/dto';
-import { prisma } from '@/core/prisma';
 import { NextResponse } from 'next/server';
+import { prisma } from '@/core/prisma';
+import { updateColumnDto } from '../dto';
 
-interface ColumnContext {
+interface ColumnRouteContext {
   params: {
     id: string;
   };
 }
 
-export async function PATCH(req: Request, { params }: ColumnContext) {
+export async function PATCH(req: Request, { params }: ColumnRouteContext) {
   const { id } = params;
   const bodyRaw = await req.json();
   const validatedBody = updateColumnDto.safeParse(bodyRaw);
@@ -43,7 +43,7 @@ export async function PATCH(req: Request, { params }: ColumnContext) {
   return NextResponse.json(updatedColumn);
 }
 
-export async function DELETE(req: Request, { params }: ColumnContext) {
+export async function DELETE(req: Request, { params }: ColumnRouteContext) {
   const { id } = params;
 
   const findColumn = await prisma.columns.findUnique({

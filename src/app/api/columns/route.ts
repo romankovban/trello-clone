@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/core/prisma';
-import { createColumnDto } from '@/app/api/columns/dto';
+import { createColumnDto } from './dto';
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);

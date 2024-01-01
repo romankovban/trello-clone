@@ -1,14 +1,14 @@
-import { updateBoardDto } from '@/app/api/boards/dto';
-import { prisma } from '@/core/prisma';
 import { NextResponse } from 'next/server';
+import { prisma } from '@/core/prisma';
+import { updateBoardDto } from '../dto';
 
-interface BoardContext {
+interface BoardRouteContext {
   params: {
     id: string;
   };
 }
 
-export async function PATCH(req: Request, { params }: BoardContext) {
+export async function PATCH(req: Request, { params }: BoardRouteContext) {
   const { id } = params;
   const bodyRaw = await req.json();
   const validatedBody = updateBoardDto.safeParse(bodyRaw);
@@ -44,7 +44,7 @@ export async function PATCH(req: Request, { params }: BoardContext) {
   return NextResponse.json(updatedBoard);
 }
 
-export async function DELETE(req: Request, { params }: BoardContext) {
+export async function DELETE(req: Request, { params }: BoardRouteContext) {
   const { id } = params;
 
   const findBoard = await prisma.boards.findUnique({

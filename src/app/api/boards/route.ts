@@ -5,7 +5,7 @@ import { createBoardDto } from '@/app/api/boards/dto';
 export async function GET(req: Request) {
   const boards = await prisma.boards.findMany();
 
-  return NextResponse.json({ boards });
+  return NextResponse.json(boards);
 }
 
 export async function POST(req: Request) {

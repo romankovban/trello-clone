@@ -66,5 +66,5 @@ export async function DELETE(req: Request, { params }: BoardContext) {
     },
   });
 
-  return NextResponse.json({ success: true }, { status: 200 });
+  return NextResponse.json({}, { status: 200 });
 }

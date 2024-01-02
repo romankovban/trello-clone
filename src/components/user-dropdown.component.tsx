@@ -1,10 +1,10 @@
 'use client';
 
+import { cn } from '@/utils/cn';
 import { useClickAway } from '@uidotdev/usehooks';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useState } from 'react';
-import { twMerge } from 'tailwind-merge';
 
 export function UserDropdown() {
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
@@ -48,7 +48,7 @@ export function UserDropdown() {
         />
       </button>
       <div
-        className={twMerge(
+        className={cn(
           'z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600',
           dropdownClasses
         )}

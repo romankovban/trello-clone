@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { Navbar } from '@/components';
 
 export const metadata: Metadata = {
   title: 'Trello clone',
@@ -13,7 +14,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="dark">{children}</body>
+      <body className="dark bg-gray-900">
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }

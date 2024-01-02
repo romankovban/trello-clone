@@ -5,29 +5,36 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Button, Input } from '@/components';
-import { useCreateBoard } from '@/hooks';
+import { useCreateColumnMutation } from '@/hooks';
 
-const createBoardSchema = z.object({
+const createColumnSchema = z.object({
   title: z.string().min(1).max(32),
 });
 
-type CreateBoardValues = z.infer<typeof createBoardSchema>;
+type CreateColumnValues = z.infer<typeof createColumnSchema>;
 
-export function CreateBoard() {
+interface CreateColumnProps {
+  boardId: string;
+}
+
+export function CreateColumn({ boardId }: CreateColumnProps) {
   const [isFormOpened, setIsFormOpened] = useState(false);
 
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm<CreateBoardValues>({
-    resolver: zodResolver(createBoardSchema),
+  } = useForm<CreateColumnValues>({
+    resolver: zodResolver(createColumnSchema),
   });
 
-  const { mutateAsync } = useCreateBoard();
+  const { mutateAsync } = useCreateColumnMutation({ boardId });
 
   const onSubmit = handleSubmit(async (data) => {
-    await mutateAsync(data);
+    await mutateAsync({
+      ...data,
+      boardId,
+    });
     setIsFormOpened(false);
   });
 
@@ -35,14 +42,14 @@ export function CreateBoard() {
 
   return (
     <div
-      className="block max-full p-6 bg-white border border-gray-200 rounded-lg shadow cursor-pointer hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+      className="block h-fit min-w-[12.5rem] w-[12.5rem] p-4 rounded-lg shadow cursor-pointer bg-gray-800 border-gray-700 hover:bg-gray-700"
       onClick={openForm}
     >
       {isFormOpened ? (
         <form onSubmit={onSubmit} className="relative">
           <Input
             {...register('title')}
-            placeholder="Enter your board title"
+            placeholder="Enter your column title"
             error={errors.title?.message}
             disabled={isSubmitting}
             className="pr-20"
@@ -57,8 +64,8 @@ export function CreateBoard() {
           </Button>
         </form>
       ) : (
-        <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-          + Create a new board
+        <h5 className="text-lg font-bold tracking-tight text-gray-900 dark:text-white">
+          + Create a new column
         </h5>
       )}
     </div>

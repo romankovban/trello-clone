@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Button, Input } from '@/components';
-import { useCreateBoard } from '@/hooks';
+import { Button, Input } from '.';
+import { useCreateBoardMutation } from '@/hooks';
 
 const createBoardSchema = z.object({
   title: z.string().min(1).max(32),
@@ -24,7 +24,7 @@ export function CreateBoard() {
     resolver: zodResolver(createBoardSchema),
   });
 
-  const { mutateAsync } = useCreateBoard();
+  const { mutateAsync } = useCreateBoardMutation();
 
   const onSubmit = handleSubmit(async (data) => {
     await mutateAsync(data);

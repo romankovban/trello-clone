@@ -12,6 +12,8 @@ export const updateColumnDto = createColumnDto
   .omit({ boardId: true })
   .partial();
 
+export type UpdateColumnDto = z.infer<typeof updateColumnDto>;
+
 export const updateColumnsOrderDto = z.array(
   z.object({
     id: z.string().uuid(),

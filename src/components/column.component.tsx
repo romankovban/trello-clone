@@ -1,8 +1,11 @@
 'use client';
 
 import { DragEvent, useEffect, useRef, useState } from 'react';
-import { ColumnPayload, useColumnQuery } from '@/hooks/use-column-query';
-import { useUpdateColumnMutation } from '@/hooks/use-update-column-mutation';
+import {
+  ColumnPayload,
+  useColumnQuery,
+  useUpdateColumnMutation,
+} from '@/hooks';
 
 interface ColumnProps {
   column: ColumnPayload;

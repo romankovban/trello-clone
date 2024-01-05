@@ -8,3 +8,4 @@ export * from './input.component';
 export * from './columns-list.component';
 export * from './create-column.component';
 export * from './column.component';
+export * from './board-title.component';

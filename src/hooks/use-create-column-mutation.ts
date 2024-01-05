@@ -2,7 +2,7 @@ import { api } from '@/core/api';
 import { Columns } from '@prisma/client';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { CreateColumnDto as CreateColumnDtoOriginal } from '@/app/api/columns/dto';
-import { BoardPayload } from './use-board-query';
+import { BoardPayload } from '.';
 
 type CreateColumnDto = Omit<CreateColumnDtoOriginal, 'width'>;
 

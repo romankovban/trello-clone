@@ -1,6 +1,16 @@
 import { ColumnsList } from '@/components';
+import { api } from '@/core/api';
 import { prisma } from '@/core/prisma';
+import { Boards } from '@prisma/client';
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+
+export const revalidate = 0;
+
+// export const metadata: Metadata = {
+//   title: '| Trello clone',
+//   description: 'Trello clone created with Next.js and Supabase',
+// };
 
 interface PageParams {
   id: string;
@@ -8,6 +18,19 @@ interface PageParams {
 
 interface BoardPageProps {
   params: PageParams;
+}
+
+export async function generateMetadata({
+  params,
+}: BoardPageProps): Promise<Metadata> {
+  const id = params.id;
+  const { data: metadata } = await api.get<Boards>(
+    `/api/boards/${id}/metadata`
+  );
+
+  return {
+    title: `${metadata.title} | Trello clone`,
+  };
 }
 
 export default async function BoardPage(props: BoardPageProps) {
@@ -33,9 +56,6 @@ export default async function BoardPage(props: BoardPageProps) {
 
   return (
     <>
-      <div className="container mx-auto">
-        <h1 className="text-white text-4xl text-center mb-8">{board.title}</h1>
-      </div>
       <ColumnsList board={board} />
     </>
   );

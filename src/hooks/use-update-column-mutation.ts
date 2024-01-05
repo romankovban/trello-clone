@@ -6,9 +6,7 @@ import { useMutation } from '@tanstack/react-query';
 const updateColumnFn = async (columnId: string, data: UpdateColumnDto) => {
   const { data: column } = await api.patch<Columns>(
     `/api/columns/${columnId}`,
-    {
-      data,
-    }
+    data
   );
 
   return column;

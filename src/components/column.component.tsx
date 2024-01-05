@@ -43,7 +43,7 @@ export function Column({ column }: ColumnProps) {
 
   return (
     <div
-      style={{ minWidth: width, width }}
+      style={{ minWidth: MIN_WIDTH, width }}
       className="block w-full pb-4 border h-fit rounded-lg shadow bg-gray-800 border-t-0 border-gray-700 sticky top-0"
     >
       <div className="sticky top-0 bg-gray-800 p-4 border-t border-gray-700 rounded-t-lg">
